@@ -1,0 +1,60 @@
+Full-Stack DevOps Case Study: MERN & Python ETL
+Bu proje, modern bir mikroservis mimarisinin uçtan uca  DevOps çalışmasıdır. Proje, bir web uygulamasının (MERN) ve bir veri işleme görevinin bulut tabanlı orkestrasyonunu içerir.
+
+ullanılan Teknolojiler
+Frontend & Backend: React.js, Node.js, Express, MongoDB (MERN Stack)
+
+Data Processing: Python (ETL Görevi - Saatlik CronJob)
+
+Containerization: Docker & Docker Hub
+
+Orchestration: Kubernetes (GKE - Google Kubernetes Engine)
+
+Infrastructure as Code (IaC): Terraform
+
+CI/CD: GitHub Actions
+
+Proje Mimarisi
+Proje, tüm bileşenlerin tek bir depoda yönetildiği Monorepo yapısındadır:
+
+/mern-project: Web uygulamasının kaynak kodları.
+
+/python-project: Veri çekme ve işleme (ETL) yapan Python betiği.
+
+/k8s: Deployment, Service, Secret ve CronJob tanımları.
+
+/terraform: Altyapının kodla yönetildiği (GCP) konfigürasyon dosyaları.
+
+/.github/workflows: Tam otomatik Build & Push süreçleri.
+
+Siber Güvenlik Yaklaşımı
+Bir Web Penetration Tester vizyonuyla, projede güvenlik ön planda tutulmuştur:
+
+Secrets Management: Hassas veriler (API Key, DB URI) asla kod içerisine gömülmemiş; Kubernetes Secrets ve GitHub Secrets üzerinden yönetilmiştir.
+
+Least Privilege: Terraform ve GCP servis hesapları, sadece gerekli işlemleri yapacak minimum yetkiyle (Principle of Least Privilege) kurgulanmıştır.
+
+Container Security: Docker imajları optimize edilerek saldırı yüzeyi (attack surface) minimize edilmiştir.
+
+CI/CD Akışı
+Her push işleminde GitHub Actions şu adımları izler:
+
+Kodun statik analizi ve kontrolü yapılır.
+
+MERN Client, Server ve Python ETL için ayrı Docker imajları oluşturulur.
+
+Oluşturulan imajlar etiketlenerek Docker Hub'a gönderilir.
+
+Nasıl Çalıştırılır?
+
+
+cd mern-project/server && npm start
+cd mern-project/client && npm start
+
+cd python-project && python ETL.py
+Bulut Dağıtımı (Cloud)
+cd terraform && terraform apply
+
+kubectl apply -f k8s/
+Hazırlayan
+İlkay Bolat - Bilgisayar Mühendisi 
