@@ -2,5 +2,30 @@ name: Full Stack & Python Deploy
 
 on:
   push:
-    branches: [ "main" ]  
-  workflow_dispatch:      
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Docker Login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build & Push MERN Backend
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/mern-server ./mern-project/server
+          docker push ${{ secrets.DOCKER_USERNAME }}/mern-server
+
+      - name: Build & Push MERN Frontend
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/mern-client ./mern-project/client
+          docker push ${{ secrets.DOCKER_USERNAME }}/mern-client
+
+      - name: Build & Push Python ETL
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/python-project ./python-project
+          docker push ${{ secrets.DOCKER_USERNAME }}/python-project
