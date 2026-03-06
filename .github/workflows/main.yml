@@ -1,0 +1,6 @@
+name: Full Stack & Python Deploy
+
+on:
+  push:
+    branches: [ "main" ]  
+  workflow_dispatch:      
